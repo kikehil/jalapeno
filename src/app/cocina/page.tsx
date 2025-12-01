@@ -6,21 +6,21 @@ import useKDSStore from '@/store/kds'
 import useOrdersStore from '@/store/orders'
 import KDSTicket from '@/components/KDSTicket'
 
-interface OrderItem {
-  productoId: number
-  nombre: string
-  cantidad: number
-  notas: string
-  precio: number
-}
-
 interface Order {
   id: number
   mesaId: number
-  items: OrderItem[]
-  enviado: boolean
-  estado?: 'en_preparacion' | 'listo' | 'entregado'
-  createdAt: string
+  nombreMesa: string
+  productos: Array<{
+    id: number
+    nombre: string
+    cantidad: number
+    precio: number
+    notas: string
+  }>
+  estado: 'en_preparacion' | 'listo' | 'entregado'
+  tiempoInicio: string
+  fecha: string
+  enviado?: boolean
 }
 
 export default function CocinaPage() {

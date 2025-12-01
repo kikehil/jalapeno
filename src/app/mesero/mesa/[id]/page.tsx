@@ -11,17 +11,19 @@ import CategoryTabs from '@/components/CategoryTabs'
 import ProductCard from '@/components/ProductCard'
 import OrderSummary from '@/components/OrderSummary'
 
+interface OrderItem {
+  id: number
+  nombre: string
+  cantidad: number
+  precio: number
+  notas: string
+}
+
 interface Table {
   id: number
   nombreMesa: string
   estado: 'libre' | 'ocupada' | 'pedido_enviado'
-  pedidoActual: Array<{
-    productoId: number
-    nombre: string
-    cantidad: number
-    precio: number
-    notas: string
-  }>
+  pedidoActual: OrderItem[]
 }
 
 interface Product {

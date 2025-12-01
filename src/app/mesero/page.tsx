@@ -12,7 +12,7 @@ interface Table {
   nombreMesa: string
   estado: 'libre' | 'ocupada' | 'pedido_enviado'
   pedidoActual: Array<{
-    productoId: number
+    id: number
     nombre: string
     cantidad: number
     precio: number

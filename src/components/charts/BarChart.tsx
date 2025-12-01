@@ -55,7 +55,7 @@ export default function BarChart({ data, title }: BarChartProps) {
         text: title,
         font: {
           size: 18,
-          weight: 'bold',
+          weight: 'bold' as const,
         },
         color: '#C41010',
       },

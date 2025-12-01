@@ -67,7 +67,7 @@ export default function LineChart({ data, title }: LineChartProps) {
         text: title,
         font: {
           size: 18,
-          weight: 'bold',
+          weight: 'bold' as const,
         },
         color: '#C41010',
       },

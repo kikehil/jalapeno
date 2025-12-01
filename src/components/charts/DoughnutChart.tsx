@@ -50,7 +50,7 @@ export default function DoughnutChart({ data, title }: DoughnutChartProps) {
           padding: 15,
           font: {
             size: 14,
-            weight: 'bold',
+            weight: 'bold' as const,
           },
           color: '#333',
         },
@@ -60,7 +60,7 @@ export default function DoughnutChart({ data, title }: DoughnutChartProps) {
         text: title,
         font: {
           size: 18,
-          weight: 'bold',
+          weight: 'bold' as const,
         },
         color: '#C41010',
         padding: {

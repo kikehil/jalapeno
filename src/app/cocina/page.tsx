@@ -6,10 +6,27 @@ import useKDSStore from '@/store/kds'
 import useOrdersStore from '@/store/orders'
 import KDSTicket from '@/components/KDSTicket'
 
+interface OrderItem {
+  productoId: number
+  nombre: string
+  cantidad: number
+  notas: string
+  precio: number
+}
+
+interface Order {
+  id: number
+  mesaId: number
+  items: OrderItem[]
+  enviado: boolean
+  estado?: 'en_preparacion' | 'listo' | 'entregado'
+  createdAt: string
+}
+
 export default function CocinaPage() {
-  const [kitchenOrders, setKitchenOrders] = useState([])
-  const [previousOrderIds, setPreviousOrderIds] = useState(new Set())
-  const [newOrderIds, setNewOrderIds] = useState(new Set())
+  const [kitchenOrders, setKitchenOrders] = useState<Order[]>([])
+  const [previousOrderIds, setPreviousOrderIds] = useState<Set<number>>(new Set())
+  const [newOrderIds, setNewOrderIds] = useState<Set<number>>(new Set())
   
   const getKitchenOrders = useKDSStore((state) => state.getKitchenOrders)
   const markAsReady = useKDSStore((state) => state.markAsReady)
@@ -21,18 +38,18 @@ export default function CocinaPage() {
   useEffect(() => {
     const updateOrders = () => {
       // Initialize states for newly sent orders
-      orders.forEach(order => {
+      (orders as Order[]).forEach((order: Order) => {
         if (order.enviado && !order.estado) {
           initializeOrderState(order.id)
         }
       })
       
-      const currentOrders = getKitchenOrders()
+      const currentOrders = getKitchenOrders() as Order[]
       
       // Detect new orders
-      const currentIds = new Set(currentOrders.map(o => o.id))
+      const currentIds = new Set(currentOrders.map((o: Order) => o.id))
       const newIds = new Set(
-        Array.from(currentIds).filter(id => !previousOrderIds.has(id))
+        Array.from(currentIds).filter((id: number) => !previousOrderIds.has(id))
       )
       
       if (newIds.size > 0) {
@@ -67,9 +84,9 @@ export default function CocinaPage() {
     setKitchenOrders(updatedOrders)
   }
   
-  const enPreparacionCount = kitchenOrders.filter(o => o.estado === 'en_preparacion').length
-  const listoCount = kitchenOrders.filter(o => o.estado === 'listo').length
-  const entregadoCount = kitchenOrders.filter(o => o.estado === 'entregado').length
+  const enPreparacionCount = kitchenOrders.filter((o: Order) => o.estado === 'en_preparacion').length
+  const listoCount = kitchenOrders.filter((o: Order) => o.estado === 'listo').length
+  const entregadoCount = kitchenOrders.filter((o: Order) => o.estado === 'entregado').length
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-jalapeno-red via-red-900 to-black p-4">
@@ -116,7 +133,7 @@ export default function CocinaPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {kitchenOrders.map((order) => (
+            {kitchenOrders.map((order: Order) => (
               <KDSTicket
                 key={order.id}
                 order={order}

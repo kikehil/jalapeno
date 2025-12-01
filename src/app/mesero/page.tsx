@@ -7,9 +7,22 @@ import useTablesStore from '@/store/tables'
 import TableCard from '@/components/TableCard'
 import AddTableModal from '@/components/AddTableModal'
 
+interface Table {
+  id: number
+  nombreMesa: string
+  estado: 'libre' | 'ocupada' | 'pedido_enviado'
+  pedidoActual: Array<{
+    productoId: number
+    nombre: string
+    cantidad: number
+    precio: number
+    notas: string
+  }>
+}
+
 export default function MeseroDashboard() {
   const router = useRouter()
-  const tables = useTablesStore((state) => state.tables)
+  const tables = useTablesStore((state) => state.tables) as Table[]
   const addTable = useTablesStore((state) => state.addTable)
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   
@@ -17,9 +30,9 @@ export default function MeseroDashboard() {
     addTable(nombreMesa)
   }
   
-  const libreCount = tables.filter((t) => t.estado === 'libre').length
-  const ocupadaCount = tables.filter((t) => t.estado === 'ocupada').length
-  const enviadoCount = tables.filter((t) => t.estado === 'pedido_enviado').length
+  const libreCount = tables.filter((t: Table) => t.estado === 'libre').length
+  const ocupadaCount = tables.filter((t: Table) => t.estado === 'ocupada').length
+  const enviadoCount = tables.filter((t: Table) => t.estado === 'pedido_enviado').length
   
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 to-gray-200 p-4">

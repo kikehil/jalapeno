@@ -11,13 +11,34 @@ import CategoryTabs from '@/components/CategoryTabs'
 import ProductCard from '@/components/ProductCard'
 import OrderSummary from '@/components/OrderSummary'
 
+interface Table {
+  id: number
+  nombreMesa: string
+  estado: 'libre' | 'ocupada' | 'pedido_enviado'
+  pedidoActual: Array<{
+    productoId: number
+    nombre: string
+    cantidad: number
+    precio: number
+    notas: string
+  }>
+}
+
+interface Product {
+  id: number
+  nombre: string
+  precio: number
+  categoria: string
+  imagen?: string
+}
+
 export default function MesaDetailPage() {
   const params = useParams()
   const router = useRouter()
   const tableId = Number(params.id)
   
   const table = useTablesStore((state) =>
-    state.tables.find((t) => t.id === tableId)
+    (state.tables as Table[]).find((t: Table) => t.id === tableId)
   )
   
   const [
@@ -58,7 +79,7 @@ export default function MesaDetailPage() {
   
   const products = getProductsByCategory(activeCategory)
   
-  const handleAddProduct = (product: any, cantidad: number, notas: string) => {
+  const handleAddProduct = (product: Product, cantidad: number, notas: string) => {
     addProductToTable(tableId, product, cantidad, notas)
   }
   

@@ -1,163 +1,99 @@
-# Taquería El Jalapeño - Website & POS System
+# Taquería El Jalapeño 🌶️
 
-Sitio web oficial y sistema POS (Point of Sale) de Taquería El Jalapeño construido con Next.js 14, React, TailwindCSS y Zustand.
+Sistema de gestión para restaurante con módulos de meseros, cocina (KDS), administración y eventos.
 
-## 🚀 Inicio Rápido
+## Tech Stack
 
-### Instalación
+- **Framework:** Next.js 14
+- **Estilos:** Tailwind CSS
+- **Estado:** Zustand
+- **Gráficos:** Chart.js + react-chartjs-2
+- **UI Icons:** Lucide React
+
+## Desarrollo Local
 
 ```bash
+# Instalar dependencias
 npm install
-```
 
-### Desarrollo
-
-```bash
+# Ejecutar en modo desarrollo
 npm run dev
-```
 
-Abre [http://localhost:3000](http://localhost:3000) en tu navegador.
-
-### Producción
-
-```bash
+# Construir para producción
 npm run build
+
+# Ejecutar en producción
 npm start
 ```
 
-## 🎨 Brand Guidelines
+## 🚀 Despliegue en Railway
 
-- **Color Primario**: #C41010 (Rojo Jalapeño)
-- **Color Secundario**: #FFCC00 (Amarillo)
-- **Acento**: #FF5E00 (Naranja)
-- **Acento Extra**: #2EA043 (Verde Jalapeño)
+### Paso 1: Preparar el Proyecto
+
+1. Abre tu terminal en la carpeta del proyecto
+2. Ejecuta `npm install` para generar el `package-lock.json`
+3. Sube tu código a un repositorio de GitHub
+
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+git branch -M main
+git remote add origin https://github.com/TU-USUARIO/jala.git
+git push -u origin main
+```
+
+### Paso 2: Crear Proyecto en Railway
+
+1. Ve a [railway.app](https://railway.app) e inicia sesión con GitHub
+2. Click en **"New Project"**
+3. Selecciona **"Deploy from GitHub repo"**
+4. Autoriza Railway para acceder a tu repositorio
+5. Selecciona el repositorio `jala`
+
+### Paso 3: Configuración Automática
+
+Railway detectará automáticamente que es un proyecto Next.js y configurará:
+- **Build Command:** `npm run build`
+- **Start Command:** `npm start`
+- **Puerto:** Automático (Railway asigna la variable `PORT`)
+
+### Paso 4: Generar Dominio
+
+1. En tu proyecto de Railway, ve a **Settings**
+2. Click en **"Generate Domain"** para obtener una URL pública
+3. Tu sitio estará disponible en `https://tu-proyecto.up.railway.app`
 
 ## 📁 Estructura del Proyecto
 
-### Sitio Web Público
 ```
 src/
-  app/
-    layout.tsx      # Layout principal
-    page.tsx        # Página de inicio
-  components/
-    Navbar.tsx      # Barra de navegación
-    Hero.tsx        # Sección hero
-    FeaturedMenu.tsx # Menú destacado
-    Services.tsx    # Servicios
-    EventsPackages.tsx # Paquetes para eventos
-    DrinksSection.tsx # Aguas frescas
-    ContactSection.tsx # Contacto y ubicación
-    Footer.tsx      # Pie de página
-  styles/
-    globals.css     # Estilos globales y utilidades
+├── app/                 # Páginas de Next.js (App Router)
+│   ├── page.tsx         # Landing page
+│   ├── mesero/          # Módulo meseros
+│   ├── cocina/          # Kitchen Display System
+│   ├── admin/           # Panel de administración
+│   └── eventos/         # Gestión de eventos
+├── components/          # Componentes reutilizables
+├── data/               # Datos estáticos
+├── store/              # Estado global (Zustand)
+└── styles/             # Estilos globales
 ```
 
-### Sistema POS (Mesero)
-```
-src/
-  app/
-    mesero/
-      page.tsx           # Dashboard de mesas
-      mesa/[id]/page.tsx # Detalle de mesa y pedido
-  components/
-    TableCard.tsx         # Tarjeta de mesa
-    AddTableModal.tsx    # Modal para agregar mesa
-    CategoryTabs.tsx     # Pestañas de categorías
-    ProductCard.tsx      # Tarjeta de producto
-    OrderSummary.tsx     # Resumen del pedido
-  store/
-    tables.js            # Store de mesas (Zustand)
-    orders.js            # Store de pedidos (Zustand)
-    kds.js               # Store de KDS (Zustand)
-    eventos.js           # Store de eventos (Zustand)
-  data/
-    products.js          # Datos de productos y categorías
-  app/
-    eventos/
-      page.tsx           # Cotizador de eventos (cliente)
-    admin/
-      eventos/
-        page.tsx         # Administración de eventos
-  components/
-    EventForm.tsx        # Formulario de cotización
-    EventCard.tsx        # Tarjeta de evento
-    Calendar.tsx          # Componente de calendario
-    KDSTicket.tsx        # Tarjeta de comanda para cocina
-```
+## Variables de Entorno (Opcional)
 
-## ✨ Características
+Si necesitas variables de entorno, agrégalas en Railway:
+1. Ve a tu proyecto → **Variables**
+2. Añade las variables necesarias
 
-### Sitio Web Público
-- ✅ Diseño completamente responsive (mobile-first)
-- ✅ Animaciones suaves con fade-in
-- ✅ Componentes reutilizables y modulares
-- ✅ Optimizado para SEO
-- ✅ Listo para integración con backend
+## Troubleshooting
 
-### Sistema POS
-- ✅ Dashboard de mesas con estados (Libre, Ocupada, En Cocina)
-- ✅ Gestión completa de pedidos por mesa
-- ✅ Categorías de productos (Tacos, Gringas, Tortas, Bebidas, etc.)
-- ✅ Control de cantidades y notas por producto
-- ✅ Envío de pedidos a cocina
-- ✅ Cierre de cuentas
-- ✅ Interfaz estilo POS con botones grandes y colores vivos
-- ✅ Completamente responsive
-- ✅ Animaciones suaves al agregar productos
+### Error de Build
+Si el build falla, asegúrate de tener el `package-lock.json` en tu repositorio.
 
-### Sistema KDS (Kitchen Display System)
-- ✅ Pantalla completa de cocina con fondo oscuro estilo industrial
-- ✅ Comandas en tiempo real con cronómetro
-- ✅ Estados: En preparación → Listo → Entregado
-- ✅ Actualización automática cada 3 segundos
-- ✅ Ordenamiento automático (pedidos más antiguos primero)
-- ✅ Animación pulse para pedidos nuevos
+### Puerto incorrecto
+Next.js en Railway usa automáticamente el puerto de la variable `PORT`. No necesitas configurar nada.
 
-### Módulo de Eventos (Taquizas)
-- ✅ Cotizador interactivo con cálculo dinámico de precios
-- ✅ Formulario completo de reserva de eventos
-- ✅ Agenda administrativa con calendario
-- ✅ Gestión de estados (Pendiente, Confirmado, Finalizado)
-- ✅ Notas internas editables
-- ✅ Filtros por fecha y estado
-- ✅ Exportación PDF (placeholder)
+---
 
-## 🔧 Tecnologías
-
-- Next.js 14 (App Router)
-- React 18
-- TailwindCSS 3
-- TypeScript
-- Zustand (State Management)
-- Lucide React (Iconos)
-
-## 🎯 Rutas del Sistema
-
-### Sitio Web Público
-- `/` - Página de inicio
-
-### Sistema POS
-- `/mesero` - Dashboard de mesas
-- `/mesero/mesa/[id]` - Detalle de mesa y gestión de pedidos
-
-### Sistema KDS
-- `/cocina` - Pantalla de comandas para cocina
-
-### Módulo de Eventos
-- `/eventos` - Cotizador y reserva de taquizas (cliente)
-- `/admin/eventos` - Administración de eventos (admin)
-
-## 📝 Notas
-
-### Sitio Web
-- Las imágenes son placeholders y deben ser reemplazadas con fotos reales
-- El mapa de Google Maps debe ser configurado con la API key correspondiente
-- Los datos de contacto deben ser actualizados con información real
-
-### Sistema POS
-- Los datos se almacenan en Zustand stores (mock JSON)
-- Listo para reemplazar con llamadas a API backend
-- Los productos y precios están en `src/data/products.js`
-- El sistema simula el envío a cocina (listo para conectar con backend real)
-
+Desarrollado con ❤️ y 🌶️

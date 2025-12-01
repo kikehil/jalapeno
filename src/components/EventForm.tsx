@@ -4,8 +4,24 @@ import { useState } from 'react'
 import { Calendar, Clock, MapPin, User, Phone, Utensils } from 'lucide-react'
 import useEventosStore from '@/store/eventos'
 
+interface FormErrors {
+  nombre?: string
+  telefono?: string
+  fecha?: string
+  hora?: string
+  ubicacion?: string
+}
+
 interface EventFormProps {
-  onSubmit: (eventData: any) => void
+  onSubmit: (eventData: {
+    nombre: string
+    telefono: string
+    fecha: string
+    hora: string
+    ubicacion: string
+    tipoCarne: string
+    cantidadOrdenes: number
+  }) => void
 }
 
 export default function EventForm({ onSubmit }: EventFormProps) {
@@ -23,7 +39,7 @@ export default function EventForm({ onSubmit }: EventFormProps) {
   })
   
   const [showQuote, setShowQuote] = useState(false)
-  const [errors, setErrors] = useState({})
+  const [errors, setErrors] = useState<FormErrors>({})
   
   const pricing = getPricing()
   const precio = calculatePrice(formData.cantidadOrdenes)
@@ -38,7 +54,7 @@ export default function EventForm({ onSubmit }: EventFormProps) {
   }
   
   const validateForm = () => {
-    const newErrors: any = {}
+    const newErrors: FormErrors = {}
     
     if (!formData.nombre.trim()) {
       newErrors.nombre = 'El nombre es requerido'

@@ -1,53 +1,113 @@
 'use client'
 
+import Link from 'next/link'
+import { Utensils, Truck, PartyPopper, Clock, Shield, Heart } from 'lucide-react'
+
 const services = [
   {
-    id: 1,
-    title: 'Pedidos en línea',
-    icon: '📱',
-    description: 'Ordena desde tu celular y recoge en el local o pide a domicilio'
+    icon: Utensils,
+    title: 'Comer en Sitio',
+    description: 'Disfruta la experiencia completa en nuestro acogedor restaurante con servicio de primera.',
+    link: '/mesero',
+    color: 'from-brand-500 to-brand-700',
   },
   {
-    id: 2,
-    title: 'Servicio para eventos',
-    icon: '🎉',
-    description: 'Llevamos el sabor de El Jalapeño a tus fiestas y celebraciones'
+    icon: Truck,
+    title: 'Para Llevar',
+    description: 'Ordena y recoge tu pedido listo para disfrutar donde prefieras.',
+    link: '/mesero',
+    color: 'from-gold to-brand-500',
   },
   {
-    id: 3,
-    title: 'Comer en el local (QR en mesa)',
-    icon: '🍽️',
-    description: 'Escanea el código QR en tu mesa para ordenar directamente'
+    icon: PartyPopper,
+    title: 'Eventos & Taquizas',
+    description: 'Llevamos el sabor de El Jalapeño a tu celebración con paquetes desde 40 personas.',
+    link: '/eventos',
+    color: 'from-green-500 to-green-700',
   },
+]
+
+const features = [
+  { icon: Clock, text: 'Servicio Rápido' },
+  { icon: Shield, text: 'Ingredientes Frescos' },
+  { icon: Heart, text: 'Hecho con Amor' },
 ]
 
 export default function Services() {
   return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-12 fade-in">
-          <h2 className="text-4xl md:text-5xl font-bold text-jalapeno-red mb-4 font-cartoon">
+    <section id="about" className="section-padding bg-dark-900 relative">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        }} />
+      </div>
+
+      <div className="max-w-7xl mx-auto relative">
+        {/* Section Header */}
+        <div className="text-center mb-16 space-y-4">
+          <span className="inline-block text-gold text-sm font-medium tracking-wider uppercase">
             Nuestros Servicios
+          </span>
+          <h2 className="font-display text-4xl md:text-5xl font-bold text-white">
+            ¿Cómo deseas <span className="gradient-text">disfrutar?</span>
           </h2>
-          <p className="text-xl text-gray-700">
-            Formas de disfrutar nuestros tacos
+          <p className="text-white/60 max-w-2xl mx-auto">
+            Múltiples formas de experimentar nuestra cocina, adaptadas a tu estilo de vida.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Services Grid */}
+        <div className="grid md:grid-cols-3 gap-6 mb-16">
           {services.map((service, index) => (
-            <div
-              key={service.id}
-              className="bg-gradient-to-br from-jalapeno-yellow to-yellow-300 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-4 border-white fade-in"
-              style={{ animationDelay: `${index * 0.1}s` }}
+            <Link
+              key={service.title}
+              href={service.link}
+              className="group relative card-glass p-8 text-center hover:scale-105 
+                       transition-all duration-500 overflow-hidden"
             >
-              <div className="text-6xl mb-4 text-center">{service.icon}</div>
-              <h3 className="text-2xl font-bold text-jalapeno-red mb-4 text-center font-cartoon">
+              {/* Gradient overlay on hover */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 
+                            group-hover:opacity-10 transition-opacity duration-500`} />
+              
+              {/* Icon */}
+              <div className={`relative inline-flex items-center justify-center w-16 h-16 
+                            bg-gradient-to-br ${service.color} rounded-2xl mb-6
+                            transform group-hover:scale-110 group-hover:rotate-3 
+                            transition-all duration-500 shadow-lg`}>
+                <service.icon className="w-7 h-7 text-white" />
+              </div>
+
+              <h3 className="font-display text-2xl font-semibold text-white mb-3 
+                           group-hover:text-gold transition-colors">
                 {service.title}
               </h3>
-              <p className="text-gray-700 text-center">
+              <p className="text-white/60 text-sm leading-relaxed">
                 {service.description}
               </p>
+
+              {/* Arrow indicator */}
+              <div className="mt-6 inline-flex items-center text-gold text-sm font-medium 
+                            opacity-0 group-hover:opacity-100 transition-all duration-300
+                            transform translate-y-2 group-hover:translate-y-0">
+                <span>Explorar</span>
+                <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" 
+                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Features Strip */}
+        <div className="flex flex-wrap justify-center gap-8 py-8 border-y border-white/10">
+          {features.map((feature) => (
+            <div key={feature.text} className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center">
+                <feature.icon className="w-5 h-5 text-gold" />
+              </div>
+              <span className="text-white/70 font-medium">{feature.text}</span>
             </div>
           ))}
         </div>
@@ -55,4 +115,3 @@ export default function Services() {
     </section>
   )
 }
-

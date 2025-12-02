@@ -1,9 +1,22 @@
 import type { Metadata } from 'next'
+import { Inter, Playfair_Display } from 'next/font/google'
 import '../styles/globals.css'
 
+const inter = Inter({ 
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
+
+const playfair = Playfair_Display({ 
+  subsets: ['latin'],
+  variable: '--font-playfair',
+  display: 'swap',
+})
+
 export const metadata: Metadata = {
-  title: 'Taquería El Jalapeño - Sabor Tradicional, Caliente y Delicioso',
-  description: 'Taquería El Jalapeño - Los mejores tacos al pastor, cecina, gringas y más. Pedidos en línea y servicio para eventos.',
+  title: 'El Jalapeño | Auténtica Cocina Mexicana',
+  description: 'Descubre el sabor auténtico de México. Tacos al pastor, cecina premium, y experiencias gastronómicas únicas. Ordena en línea o reserva tu mesa.',
 }
 
 export default function RootLayout({
@@ -12,9 +25,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="es">
-      <body>{children}</body>
+    <html lang="es" className={`${inter.variable} ${playfair.variable}`}>
+      <body className="font-body bg-dark-900 text-white antialiased">
+        {children}
+      </body>
     </html>
   )
 }
-
